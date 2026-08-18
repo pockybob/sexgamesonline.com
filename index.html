@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Keycloak Lab</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #user {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Keycloak Lab</h1>
+
+    <p>This is my test website for learning Keycloak.</p>
+
+    <button onclick="login()">Login with Keycloak</button>
+
+    <div id="user"></div>
+
+    <script>
+        // Change this later to your real Keycloak URL.
+        const KEYCLOAK_URL = "https://auth.yourdomain.com";
+
+        const REALM = "my-lab";
+        const CLIENT_ID = "my-app";
+
+        function login() {
+            const redirectUri =
+                window.location.origin + "/callback";
+
+            const authorizationUrl =
+                KEYCLOAK_URL +
+                "/realms/" + REALM +
+                "/protocol/openid-connect/auth" +
+                "?client_id=" + encodeURIComponent(CLIENT_ID) +
+                "&response_type=code" +
+                "&scope=openid" +
+                "&redirect_uri=" + encodeURIComponent(redirectUri);
+
+            window.location.href = authorizationUrl;
+        }
+    </script>
+
+</body>
+</html>
